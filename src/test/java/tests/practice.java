@@ -1,6 +1,7 @@
 package tests;
 
 
+import base.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -17,47 +18,16 @@ import utilities.WebDriverFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class practice {
-
-
-
-    WebDriver driver;
-
-    @BeforeMethod
-    public void setupMethod(){
-        driver = WebDriverFactory.getDriver("chrome");
-
-        //Maximize the page
-        driver.manage().window().maximize();
-
-        //Implicit wait
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-    }
-
+public class practice extends TestBase {
 
 
     @Test
     public void selenium_test1() throws InterruptedException {
-       selectorsPage selectorsPage=new selectorsPage(driver);
+        selectorsPage selectorsPage = new selectorsPage(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
-
-
-
-         driver.get("https://selectorshub.com/xpath-practice-page/");
-
-
-
-
-
-
-
-        WebElement EnterFirstName= driver.findElement(By.xpath("//input[contains(@placeholder,'First Enter')]"));
-        WebElement EnterLastName= driver.findElement(By.xpath("//input[contains(@placeholder,'Last')]"));
-
-
-
+        Thread.sleep(6000);
+        driver.navigate().to("https://selectorshub.com/xpath-practice-page/");
 
         /**
          * Disabled bir elementi enabled yapma ve içine bir şeyler yazdırma
@@ -65,15 +35,9 @@ public class practice {
         js.executeScript("arguments[0].disabled=false", selectorsPage.EnterFirstName);
         js.executeScript("arguments[0].disabled=false", selectorsPage.EnterLastName);
         Thread.sleep(3000);
-    EnterFirstName.sendKeys("sarıların");
-        EnterLastName.sendKeys("sülo");
+        selectorsPage.EnterFirstName.sendKeys("sarıların");
+        selectorsPage.EnterLastName.sendKeys("sülo");
         Thread.sleep(3000);
-    }
-
-
-    @AfterMethod
-    public void tearDown(){
-        driver.close();
     }
 
 
